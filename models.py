@@ -1,6 +1,8 @@
 from mongoengine import Document
-from mongoengine.fields import ReferenceField,  ListField, StringField
+from mongoengine.fields import ReferenceField,  ListField, StringField, EmbeddedDocument, EmbeddedDocumentField
 
+class Tag(EmbeddedDocument):
+    name = StringField()
 
 class Authors(Document):
     name = StringField(required=True)
@@ -10,6 +12,6 @@ class Authors(Document):
 
 
 class Quotes(Document):
-    tags = ListField(StringField(max_length=50))
+    tags = ListField(EmbeddedDocumentField(Tag))
     author = ReferenceField(Authors, required=True)
     quote = StringField(required=True)
