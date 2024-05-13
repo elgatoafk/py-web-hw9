@@ -20,9 +20,7 @@ def load_quotes():
     with open("quotes.json", "r", encoding="utf-8") as f:
         quotes = json.load(f)
     for quote in quotes:
-        tags = []
-        for tag in quote["tags"]:
-            tags.append(Tag(name=tag))
+        tags = [Tag(name=tag) for tag in quote["tags"]]
 
         author_name = quote["author"]
         author = Authors.objects(name=author_name).first()
